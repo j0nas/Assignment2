@@ -8,7 +8,6 @@ public class TableObject {
     private String[] headerNames;
     private String[] headerTypes;
 
-
     private String[] headerWidths;
     private ArrayList<String[]> rowData = new ArrayList<>();
 
@@ -61,6 +60,22 @@ public class TableObject {
                 rowData.get(rowData.size() - 1)[j - 1] = resultSet.getString(j);
             }
         }
+    }
+
+    public String[] getHeaderNames() {
+        return headerNames;
+    }
+
+    public String[] getHeaderTypes() {
+        return headerTypes;
+    }
+
+    public String[] getHeaderWidths() {
+        return headerWidths;
+    }
+
+    public ArrayList<String[]> getRowData() {
+        return rowData;
     }
 
     public void drop(Connection connection) throws SQLException {
