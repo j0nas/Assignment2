@@ -15,6 +15,7 @@ public class Main {
                         tableObject.getHeaderTypes()[i],
                         tableObject.getHeaderWidths()[i]);
             }
+
             System.out.println();
             for (String[] strings : tableObject.getRowData()) {
                 Arrays.asList(strings).forEach(item -> System.out.printf("%-25s", item));
@@ -23,6 +24,5 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }
