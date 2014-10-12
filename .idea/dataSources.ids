@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="MySQL - test@localhost" uuid="3207b13c-8165-439a-a9c1-3d69974e8c2f">
+    <database-info product="MySQL" version="5.6.17" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.31 ( Revision: alexander.soklakov@oracle.com-20140520065950-groqzzbvxprqdmnz )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="world"/>
+    <table name="city" schema="" catalog="world" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Name" sqlType="CHAR" precision="35" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="CountryCode" sqlType="CHAR" precision="3" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="District" sqlType="CHAR" precision="20" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Population" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="ID"/>
+    </table>
+    <table name="country" schema="" catalog="world" type="TABLE">
+      <column name="Code" sqlType="CHAR" precision="3" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Name" sqlType="CHAR" precision="52" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Continent" sqlType="ENUM" precision="13" scale="0" nullable="false" jdbcType="1" def="J0FzaWEn"/>
+      <column name="Region" sqlType="CHAR" precision="26" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="SurfaceArea" sqlType="FLOAT" precision="10" scale="2" nullable="false" jdbcType="7" def="MC4wMA=="/>
+      <column name="IndepYear" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="Population" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="LifeExpectancy" sqlType="FLOAT" precision="3" scale="1" nullable="true" jdbcType="7"/>
+      <column name="GNP" sqlType="FLOAT" precision="10" scale="2" nullable="true" jdbcType="7"/>
+      <column name="GNPOld" sqlType="FLOAT" precision="10" scale="2" nullable="true" jdbcType="7"/>
+      <column name="LocalName" sqlType="CHAR" precision="45" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="GovernmentForm" sqlType="CHAR" precision="45" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="HeadOfState" sqlType="CHAR" precision="60" scale="0" nullable="true" jdbcType="1"/>
+      <column name="Capital" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Code2" sqlType="CHAR" precision="2" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="Code"/>
+    </table>
+    <table name="countrylanguage" schema="" catalog="world" type="TABLE">
+      <column name="CountryCode" sqlType="CHAR" precision="3" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Language" sqlType="CHAR" precision="30" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="IsOfficial" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J0Yn"/>
+      <column name="Percentage" sqlType="FLOAT" precision="4" scale="1" nullable="false" jdbcType="7" def="MC4w"/>
+      <primary-key name="PRIMARY" columns="CountryCode,Language"/>
+    </table>
+  </data-source>
+</component>
