@@ -6,6 +6,8 @@ public class TableObject {
     private String tableName;
     private String[] headerNames;
     private String[] headerTypes;
+
+
     private String[] headerWidths;
     private ArrayList<String[]> rowData = new ArrayList<>();
 
@@ -33,8 +35,12 @@ public class TableObject {
 
         // Fetch header column names
         headerNames = new String[resultSetMetaData.getColumnCount()];
+        headerTypes = new String[resultSetMetaData.getColumnCount()];
+        headerWidths = new String[resultSetMetaData.getColumnCount()];
         for (int i = 1; i <= headerNames.length; i++) {
             headerNames[i - 1] = resultSetMetaData.getColumnLabel(i);
+            headerTypes[i - 1] = resultSetMetaData.getColumnTypeName(i);
+            headerWidths[i - 1] = String.valueOf(resultSetMetaData.getColumnDisplaySize(i));
         }
 
         while (resultSet.next()) {

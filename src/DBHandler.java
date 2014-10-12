@@ -2,9 +2,10 @@ import java.sql.SQLException;
 
 public class DBHandler implements AutoCloseable {
     public final ConnectToDB db;
+    private TableObject tableObject;
 
     public DBHandler(String user, String password) {
-        db = new ConnectToDB(Config.database, user, password);
+        db = new ConnectToDB(Config.hostname, Config.database, user, password);
     }
 
     public ConnectToDB getDb() {
@@ -18,11 +19,11 @@ public class DBHandler implements AutoCloseable {
         }
     }
 
-    public static void copyFile(String filename, String tablename) {
-        TableObject tableObject = new TableObject(filename, tablename);
+    public void copyFile(String filename, String tablename) {
+        this.tableObject = new TableObject(filename, tablename);
         try {
-            tableObject.createTable(true);
-            tableObject.fillTable(false);
+            this.tableObject.createTable(true);
+            this.tableObject.fillTable(false);
         } catch (Exception e) {
             e.printStackTrace();
         }

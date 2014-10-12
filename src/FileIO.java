@@ -17,6 +17,7 @@ public class FileIO {
             e.printStackTrace();
         }
 
+        System.out.println(fileLines.size());
         return fileLines.toArray(new String[fileLines.size()]);
     }
 

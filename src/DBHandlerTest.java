@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -48,7 +49,7 @@ public class DBHandlerTest {
 
     @Test
     public void testCopyFile() throws SQLException {
-        DBHandler.copyFile(Config.filepath, Config.table);
+        getDB().copyFile(Config.filepath, Config.table);
 
         // Modified version of http://stackoverflow.com/questions/2942788/check-if-table-exists
         // Original author: Brian Agnew (http://stackoverflow.com/users/12960/brian-agnew)
@@ -66,5 +67,6 @@ public class DBHandlerTest {
     @Test
     public void showTableTest() throws Exception {
         System.out.println(getDB().getTable(Config.table).generateCreateStatement());
+        Arrays.asList(getDB().getTable(Config.table).generateInsertValuesStatements()).forEach(System.out::println);
     }
 }
