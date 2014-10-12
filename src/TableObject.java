@@ -22,6 +22,7 @@ public class TableObject {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         headerNames = fileLines[0].split(Config.filelineSplit);
         headerTypes = fileLines[1].split(Config.filelineSplit);
         headerWidths = fileLines[2].split(Config.filelineSplit);
@@ -42,10 +43,6 @@ public class TableObject {
         this.tableName = tablename;
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM %s LIMIT 100000", tablename));
-
-        if (!resultSet.isBeforeFirst()) {
-            throw new RuntimeException("No data returned in the call!");
-        }
 
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         // Fetch header column names
