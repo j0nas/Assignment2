@@ -5,7 +5,11 @@ import java.nio.charset.CodingErrorAction;
 import java.util.ArrayList;
 
 public class FileIO {
-    public static String[] readFileLines(String filename) {
+    private FileIO() {
+        throw new AssertionError("This class cannot be instantiated");
+    }
+
+    public static String[] readFileLines(String filename) throws FileNotFoundException {
         ArrayList<String> fileLines = new ArrayList<>();
         CharsetDecoder decoder = Charset.forName("UTF-8").newDecoder();
         decoder.onMalformedInput(CodingErrorAction.IGNORE);
@@ -14,10 +18,9 @@ public class FileIO {
                      new BufferedReader(new InputStreamReader(new FileInputStream(new File(filename)), decoder))) {
             bufferedReader.lines().forEach(fileLines::add);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileNotFoundException();
         }
 
-        System.out.println(fileLines.size());
         return fileLines.toArray(new String[fileLines.size()]);
     }
 

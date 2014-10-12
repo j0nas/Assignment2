@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +16,12 @@ public class TableObject {
         FileIO.assertExists(filename);
         this.tableName = tablename;
 
-        String[] fileLines = FileIO.readFileLines(filename);
+        String[] fileLines = new String[0];
+        try {
+            fileLines = FileIO.readFileLines(filename);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         headerNames = fileLines[0].split(Config.filelineSplit);
         headerTypes = fileLines[1].split(Config.filelineSplit);
         headerWidths = fileLines[2].split(Config.filelineSplit);
@@ -28,11 +34,20 @@ public class TableObject {
     }
 
     public TableObject(Connection connection, String tablename) throws SQLException {
+        DBHandler dbHandler = new DBHandler();
+        if (!dbHandler.getDb().tableExists(tablename)) {
+            throw new RuntimeException("Table '" + tablename + "' does not exist!");
+        }
+
         this.tableName = tablename;
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM %s LIMIT 100000", tablename));
-        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
+        if (!resultSet.isBeforeFirst()) {
+            throw new RuntimeException("No data returned in the call!");
+        }
+
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         // Fetch header column names
         headerNames = new String[resultSetMetaData.getColumnCount()];
         headerTypes = new String[resultSetMetaData.getColumnCount()];
@@ -49,6 +64,11 @@ public class TableObject {
                 rowData.get(rowData.size() - 1)[j - 1] = resultSet.getString(j);
             }
         }
+    }
+
+    public void drop(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.execute("DROP TABLE IF EXISTS " + getTableName());
     }
 
     public String getTableName() {
@@ -105,9 +125,13 @@ public class TableObject {
 
     public void fillTable(boolean truncateFirst) throws Exception {
         DBHandler dbHandler = new DBHandler(Config.username, Config.password);
+        if (!dbHandler.getDb().tableExists(getTableName())) {
+            throw new RuntimeException("Table " + getTableName() + " does not exist!");
+        }
+
         Statement statement = dbHandler.getDb().getConnection().createStatement();
         if (truncateFirst) {
-            statement.executeUpdate("TRUNCATE TABLE IF EXISTS " + getTableName());
+            statement.executeUpdate(String.format("TRUNCATE TABLE " + getTableName()));
         }
 
         String[] updateQueries = generateInsertValuesStatements();

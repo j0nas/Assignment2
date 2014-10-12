@@ -8,4 +8,8 @@ public class Config {
 
     public static final String filepath = "C:\\Users\\Jonas\\Desktop\\tekstfil.txt";
     public static final String filelineSplit = "/";
+
+    private Config() {
+        throw new AssertionError("This class cannot be instantiated");
+    }
 }
